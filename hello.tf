@@ -1,5 +1,9 @@
 
  
+provider "aws" {
+  region = "ap-south-1"
+  profile = "naga"
+}
 
 resource "aws_vpc" "myvpc" {
   cidr_block = var.mycidr
@@ -11,14 +15,17 @@ resource "aws_subnet" "mysubnet" {
     depends_on = [ aws_vpc.myvpc ]
 
 }
-
+data "aws_ami" "myami" {
+ owners = ["amazon"] 
+ most_recent = true
+ filter {
+   name = "name"
+   values = ["Windows_Server-2022-*"]
+ }
+}
 resource "aws_instance" "myinstance" {
-    ami = data.aws_ami.myami.id
+    ami = data.aws_ami.myami
     instance_type = "t2.medium"
-    subnet_id = aws_subnet.mysubnet.id
   
 }
 
-output "myoutput" {
-  value = [aws_vpc.myvpc.id,aws_instance.myinstance.id]
-}
