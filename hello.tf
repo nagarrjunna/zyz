@@ -1,7 +1,4 @@
-provider "aws" {
-  region = var.location
-  profile = "naga"
-}
+
  
 
 resource "aws_vpc" "myvpc" {
@@ -23,8 +20,12 @@ data "aws_ami" "myami" {
  }
 }
 resource "aws_instance" "myinstance" {
-    ami = data.aws_ami.myami
+    ami = data.aws_ami.myami.id
     instance_type = "t2.medium"
+    subnet_id = aws_subnet.mysubnet.id
   
 }
 
+output "myoutput" {
+  value = [aws_vpc.myvpc.id,aws_instance.myinstance.id]
+}
