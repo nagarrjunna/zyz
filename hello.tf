@@ -31,8 +31,9 @@ data "aws_ami" "myami" {
   }
 }
 resource "aws_instance" "myinstance" {
-    ami = data.aws_ami.myami.image_id
+    ami = data.aws_ami.myami.id
     instance_type = "t2.medium"
+    subnet_id = aws_subnet.mysubnet.id
   
 }
 
