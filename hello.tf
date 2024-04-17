@@ -23,12 +23,12 @@ resource "aws_subnet" "mysubnet" {
 
 }
 data "aws_ami" "myami" {
- owners = ["amazon"] 
- most_recent = true
- filter {
-   name = "name"
-   values = ["Windows_Server-2022-*"]
- }
+  owners      = ["amazon"]
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2022-*"]
+  }
 }
 resource "aws_instance" "myinstance" {
     ami = data.aws_ami.myami.id
