@@ -31,7 +31,7 @@ data "aws_ami" "myami" {
   }
 }
 resource "aws_instance" "myinstance" {
-    ami = data.aws_ami.myami.id
+    ami = data.aws_ami.myami.id[0]
     instance_type = "t2.medium"
   
 }
