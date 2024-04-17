@@ -27,7 +27,7 @@ data "aws_ami" "myami" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["Windows_Server-2022-*"]
+    values = ["al2023-ami"]
   }
 }
 resource "aws_instance" "myinstance" {
